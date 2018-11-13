@@ -1,0 +1,49 @@
+{% extends "admin/layout.html" %}
+{% block body_content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">今日统计</div>
+            <div class="panel-body">
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="text-muted">订单总数:</span>
+                        <strong>{{ today_count }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">待接单数:</span>
+                        <strong>{{ today_unreceived }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">已接单数:</span>
+                        <strong>{{ today_received }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">历史统计</div>
+            <div class="panel-body">
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="text-muted">订单总数:</span>
+                        <strong>{{ total_count }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">昨日单数:</span>
+                        <strong>{{ yestoday_count }}</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-muted">昨日待接:</span>
+                        <strong>{{ yestoday_unreceived }}</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

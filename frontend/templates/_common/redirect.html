@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>{% block title %}跳转中{% endblock %}</title>
+    <style type="text/css">
+        html,
+        body,
+        .container {
+            font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"微软雅黑","Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif !important;
+            width: 100vw;
+            height: : 100vh;
+            position: relative;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 18px;
+        }
+        .container > .wrapper {
+            position: absolute;
+            top: 21vh;
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        [class^="line"] {
+            height: 1.8em;
+            line-height: 1.8em;
+        }
+        .line-msg {
+            font-size: 1.3em;
+            margin-bottom: 1.2em;
+            text-shadow: #a1b3f3 1px 2px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="line-msg">{{ error_msg }}</div>
+            <div class="line-countdown">
+                页面将在 <strong id="timer">5</strong>&nbsp;秒后
+                <a href="{{ back_url }}">返回</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function countdown() {
+            var func = arguments.callee;
+            var $timer = document.querySelector('#timer');
+            var count = parseInt($timer.innerHTML.trim());
+            if(count > 1) {
+                $timer.innerHTML = (count - 1).toString();
+                setTimeout(func, 1000);
+            }
+            else {
+                location.href = "{{ back_url }}";
+                // alert('hello');
+            }
+        }
+        window.onload = countdown;
+    </script>
+</body>
+</html>

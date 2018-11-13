@@ -1,0 +1,58 @@
+{
+    "jquery": {
+        "local": "_libs/jquery/jquery-1.12.4.min.js",
+        "cdn": "https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"
+    },
+    "bootstrap-js": {
+        "local": "_libs/bootstrap/js/bootstrap.min.js",
+        "cdn": "https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    },
+    "bootstrap-css": {
+        "local": "_libs/bootstrap/css/bootstrap.min.css",
+        "cdn": "https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    },
+    "bootstrap-theme-css": {
+        "local": "_libs/bootstrap/css/bootstrap-theme.min.css",
+        "cdn": "https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    },
+    "bootstrap-table-css": {
+        "local": "_libs/bootstrap-table/bootstrap-table.min.css",
+        "cdn": "https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css"
+    },
+    "bootstrap-table-i18n-chinese": {
+        "local": "_libs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js",
+        "cdn": "https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"
+    },
+    "bootstrap-table-js": {
+        "local": "_libs/bootstrap-table/bootstrap-table.min.js",
+        "cdn": "https://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"
+    },
+    "bootbox": {
+        "local": "_libs/bootbox/bootbox.min.js",
+        "cdn": "https://cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"
+    },
+    "font-awesome": {
+        "local": "_libs/font-awesome/css/font-awesome.min.css",
+        "cdn": "https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    },
+    "html5shiv": {
+        "local": "_libs/html5shiv/html5.min.js",
+        "cdn": "https://cdn.bootcss.com/html5shiv/r29/html5.min.js"
+    },
+    "respond.js": {
+        "local": "_libs/respond.js/respond.min.js",
+        "cdn": "https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"
+    },
+    "air-datepicker-js": {
+        "local": "_libs/air-datepicker/js/datepicker.min.js",
+        "cdn": "https://cdn.bootcss.com/air-datepicker/2.2.3/js/datepicker.min.js"
+    },
+    "air-datepicker-css": {
+        "local": "_libs/air-datepicker/css/datepicker.min.css",
+        "cdn": "https://cdn.bootcss.com/air-datepicker/2.2.3/css/datepicker.min.css"
+    },
+    "air-datepicker-i18n-chinese": {
+        "local": "_libs/air-datepicker/js/i18n/datepicker.zh.js",
+        "cdn": "https://cdn.bootcss.com/air-datepicker/2.2.3/js/i18n/datepicker.zh.js"
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('favicon_robots', _file='favicon.png') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- Font-icon css-->
+    <link href="{{ static_url('font-awesome') }}" rel="stylesheet" type="text/css" />
+    <!-- BootStrap -->
+    <link href="{{ static_url('bootstrap-css') }}" rel="stylesheet" type="text/css" />
+    {% block head_link %}{% endblock %}
+    <title>基础模板</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--[if lt IE 9]>
+        <script src="{{ static_url('html5shiv') }}" type="text/javascript"></script>
+        <script src="{{ static_url('respond.js') }}" type="text/javascript"></script>
+    <![endif]-->
+    {% block head_css %}{% endblock %}
+    {% block head_after_link %}{% endblock %}
+    <script type="text/javascript">
+        if (!window.GLOBAL) {
+            window.GLOBAL = {};
+        }
+        GLOBAL.STATIC_BASE = "{{ url_for('static', filename='') }}";
+        GLOBAL.CURRENT = "{{ url_for(request.endpoint) }}";
+        GLOBAL.URL_PATH = "{{ request.path }}";
+    </script>
+    {% block head_src %}{% endblock %}
+    {% block head_js %}{% endblock %}
+</head>
+<body>
+{% block body_header %}{% endblock %}
+{% block body_main %}{% endblock %}
+{% block body_footer %}
+{% endblock %}
+{% block body_src %}
+    <script src="{{ static_url('jquery') }}" type="text/javascript"></script>
+    <script src="{{ static_url('bootstrap-js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block body_js %}{% endblock %}
+{% block body_after_src %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+<aside class="main-sidebar hidden-print">
+    <section class="sidebar">
+        <!-- Sidebar Menu-->
+        <ul class="sidebar-menu">
+            <li data-bar="{{ url_for('admin.index_view') }}">
+                <a href="javascript:;"><i class="fa fa-dashboard"></i><span>概览</span></a>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-shopping-basket"></i><span>订单中心</span><i class="fa fa-angle-right"></i></a>
+                <ul class="treeview-menu">
+                    <li data-bar="">
+                        <a href="javascript:;"><i class="fa fa-list"></i> 待接订单</a>
+                    </li>
+                    <li data-bar="">
+                        <a href="javascript:;"><i class="fa fa-bar-chart"></i> 接单历史</a>
+                    </li>
+                    {% if g.login_user.is_admin %}
+                    <li data-bar="">
+                        <a href="javascript:;"><i class="fa fa-list"></i> 历史订单</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            {% if g.login_user.is_admin %}
+            <li class="treeview">
+                <a href="#"><i class="fa fa-cubes"></i><span>用户管理</span><i class="fa fa-angle-right"></i></a>
+                <ul class="treeview-menu">
+                    <li data-bar="{{ url_for('admin.user_list') }}">
+                        <a href="javascript:;"><i class="fa fa-list"></i> 用户列表</a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+            <li data-bar="{{ url_for('admin.gen_pwd_view') }}">
+                <a href="javascript:;"><i class="fa fa-volume-up"></i><span>debug</span></a>
+            </li>
+        </ul>
+    </section>
+</aside>

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+config/database.json
+site.version
+.idea
+*.log
+*.sqlite
+migrations/
+sftp-config.json

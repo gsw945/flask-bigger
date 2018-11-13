@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('favicon_robots', _file='favicon.png') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- BootStrap -->
+    <link href="{{ static_url('bootstrap-css') }}" rel="stylesheet" type="text/css" />
+    <!-- Font-icon css-->
+    <link href="{{ static_url('font-awesome') }}" rel="stylesheet" type="text/css" />
+    <!-- Admin CSS-->
+    <link href="{{ static_url('admin/mian.css') }}" rel="stylesheet" type="text/css" />
+    {% block head_link %}
+    {% endblock %}
+    <title>Flask-Bigger-管理后台</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+    <!--[if lt IE 9]>
+        <script src="{{ static_url('html5shiv') }}" type="text/javascript"></script>
+        <script src="{{ static_url('respond.js') }}" type="text/javascript"></script>
+    <![endif]-->
+    <style type="text/css">
+        .fixed .content-wrapper {
+            padding-bottom: 0;
+        }
+        .card {
+            margin-bottom: 6px;
+        }
+        .sidebar-menu .treeview-menu {
+            margin-left: 1.28em;
+        }
+        .sidebar-menu .treeview-menu .treeview-menu {
+            padding-left: 3px;
+        }
+        .page-title  {
+            padding: 5px 20px;
+            margin-bottom: 5px;
+        }
+        .page-body {
+            margin-left: -39px;
+            margin-right: -39px;
+        }
+        
+        .sidebar-menu .treeview-menu > li:hover {
+            background-color: #394b52;
+        }
+        .sidebar-menu .treeview-menu > li.active > a,
+        .sidebar-menu .treeview-menu > li:hover > a {
+            margin: 0;
+            color: #93dcd5;
+        }
+        .nav-current > a {
+            color: #93dcd5 !important;
+            border-color: #009688 !important;
+        }
+        .breadcrumb > li + li:before {
+            content: ">";
+        }
+    </style>
+    <script type="text/javascript">
+        if (!window.GLOBAL) {
+            window.GLOBAL = {};
+        }
+        GLOBAL.STATIC_BASE = "{{ url_for('static', filename='') }}";
+        GLOBAL.CURRENT = "{{ url_for(request.endpoint) }}";
+        GLOBAL.URL_PATH = "{{ request.path }}";
+        {% block head_js %}{% endblock %}
+    </script>
+</head>
+<body class="sidebar-mini fixed">
+    <div class="wrapper">
+        <!-- Navbar-->
+        {% include "admin/_header.html" ignore missing with context %}
+        <!-- Side-Nav-->
+        {% include "admin/_sidebar.html" ignore missing with context %}
+        <!-- Page Main -->
+        {% block page_main %}
+        <div class="content-wrapper">
+            <div class="page-title">
+                <div>
+                    <ul class="breadcrumb">
+                        <li><i class="fa fa-home fa-lg"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row page-body">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                        {% block body_content %}
+                        TODO ...    
+                        {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endblock %}
+    </div>
+    {% block body_extra %}{% endblock %}
+    <!-- Javascripts-->
+    <script src="{{ static_url('jquery') }}" type="text/javascript"></script>
+    <script src="{{ static_url('bootstrap-js') }}" type="text/javascript"></script>
+    <script src="{{ static_url('bootbox') }}" type="text/javascript"></script>
+    <script src="{{ static_url('admin/main.js') }}" type="text/javascript"></script>
+    {% block body_src %}
+    {# js-src #}
+    {% endblock %}
+    {% block body_js %}
+    <script type="text/javascript">
+        function setup_navigation() {
+            var $menu = $('.main-sidebar .sidebar .sidebar-menu');
+            var $current_bar = $menu.find('li[data-bar="' + GLOBAL.CURRENT + '"]');
+            var nav_arr = [];
+            if($current_bar.length > 0) {
+                nav_arr.push($current_bar.children('a').text().trim());
+                if(!$current_bar.hasClass('active')) {
+                    $current_bar.addClass('active');
+                    var $p_ul = $current_bar.closest('.treeview-menu');
+                    if($p_ul.length > 0) {
+                        // 二级菜单
+                        var $p_li = $p_ul.closest('.treeview');
+                        nav_arr.push($p_li.children('a').text().trim());
+                        $p_li.addClass('nav-current');
+                        var $p2_ul = $p_li.closest('.treeview-menu');
+                        if($p2_ul.length > 0) {
+                            // 三级菜单
+                            var $p2_li = $p2_ul.closest('.treeview');
+                            nav_arr.push($p2_li.children('a').text().trim());
+                            $p2_li.addClass('nav-current');
+                        }
+                    }
+                    else {
+                        // 一级菜单
+                        $current_bar.addClass('nav-current');
+                    }
+                }
+                var $breadcrumb = $('.page-title .breadcrumb');
+                for (var i = nav_arr.length - 1; i >= 0; i--) {
+                    var tag = 'a';
+                    if(i < 1) {
+                        tag = 'span';
+                    }
+                    $breadcrumb.append([
+                        '<li>',
+                            '<', tag, (tag == 'a' ? ' href="javascript:;"' : ''), '>',
+                                nav_arr[i],
+                            '</', tag, '>',
+                        '</li>'
+                    ].join(''));
+                }
+            }
+            $menu.on('click', 'a[href="javascript:;"]', function(e) {
+                var $a = $(e.target);
+                var $li = $a.closest('li[data-bar]');
+                if($li.length > 0) {
+                    window.location.href= $li.attr('data-bar');
+                }
+            });
+        }
+        function build_line(item_name, item_html, tip_style) {
+            if(!tip_style) {
+                tip_style = '';
+            }
+            tip_style += 'display: inline-block;';
+            return [
+                '<div class="form-line">',
+                    '<span style="', tip_style, '">',
+                        '<label class="line-tip">', item_name, '</label>: ',
+                    '</span>',
+                    item_html,
+                '</div>'
+            ].join('');
+        }
+        /**
+         * 弹出修改密码对话框
+         */
+        function popup_change_pwd(url) {
+            // console.log(user_item);
+            var htmls = [
+                '<div class="box-form-wrapper">'
+            ];
+            htmls.push(build_line(
+                '当前密码',
+                '<input type="password" id="txt-origin-password" name="txt-origin-password" value="" placeholder="当前密码" />'
+            ));
+            htmls.push(build_line(
+                '新的密码',
+                '<input type="password" id="txt-new-password" name="txt-new-password" value="" placeholder="新的密码" />'
+            ));
+            htmls.push(build_line(
+                '确认密码',
+                '<input type="password" id="txt-re-password" name="txt-re-password" value="" placeholder="确认密码" />'
+            ));
+            htmls.push('</div>');
+            htmls.push([
+                '<div class="popup-tip-msg">',
+                    '注意: 操作完成后，请手动点击 [提交] 按钮',
+                '</div>'
+            ].join(''));
+            // http://bootboxjs.com/documentation.html
+            bootbox.setLocale('zh_CN');
+            var dialog = bootbox.dialog({
+                title: '修改密码',
+                message: htmls.join(''),
+                show: true,
+                backdrop: undefined,
+                closeButton: true,
+                onEscape: false,
+                // size: 'large',
+                className: "my-modal",
+                buttons: {
+                    submit: {
+                        label: '提交',
+                        className: 'btn-primary',
+                        callback: function() {
+                            var _data = collect_change_pwd_info();
+                            if(!!_data) {
+                                submit_change_pwd_request(url, _data);
+                                return true;
+                            }
+                            return false;
+                        }
+                    },
+                    close: {
+                        label: '取消',
+                        className: 'btn-primary',
+                        callback: function() {
+                            return true;
+                        }
+                    }
+                },
+                callback: function(result) {
+                    return true;
+                }
+            });
+        }
+        function submit_change_pwd_request(url, data) {
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data)
+                    if(data.error != 0) {
+                        alert(data.desc);
+                    }
+                    else {
+                        console.log(data);
+                    }
+                },
+                error: function(data) {
+                    try {
+                        console.log(data);
+                        alert('网络错误');
+                    }
+                    catch (ex) {}
+                }
+            });
+        }
+        function setup_change_pwd() {
+            var $btn = $('#btn-change-pwd');
+            $btn.on('click', function() {
+                var url = $(this).attr('data-url');
+                popup_change_pwd(url);
+            });
+        }
+        function collect_change_pwd_info() {
+            var ret = null;
+            var $origin_pwd = $('#txt-origin-password');
+            var $new_pwd = $('#txt-new-password');
+            var $re_pwd = $('#txt-re-password');
+            var $inputs = [
+                $origin_pwd,
+                $new_pwd,
+                $re_pwd
+            ];
+            var tip_cfg = {
+                'trigger': 'manual',
+                'placement': 'top',
+                'template': [
+                    '<div class="tooltip change-pwd-tooltip" role="tooltip">',
+                        '<div class="tooltip-arrow"></div>',
+                        '<div class="tooltip-inner"></div>',
+                    '</div>'
+                ].join(''),
+                'delay': 3456
+            };
+            if($origin_pwd.val().length < 1) {
+                $origin_pwd.tooltip(
+                    $.extend(
+                        {}, {
+                            'selector': $origin_pwd.selector,
+                            'title': '请填写当前密码'
+                        },
+                        tip_cfg
+                    )
+                );
+                $origin_pwd.tooltip('show');
+                $origin_pwd.parent().find('.change-pwd-tooltip').css({
+                    'top': '+=15'
+                });
+            }
+            else if($new_pwd.val().length < 1) {
+                $new_pwd.tooltip(
+                    $.extend(
+                        {}, {
+                            'selector': $new_pwd.selector,
+                            'title': '新密码不能为空'
+                        },
+                        tip_cfg
+                    )
+                );
+                $new_pwd.tooltip('show');
+                $new_pwd.parent().find('.change-pwd-tooltip').css({
+                    'top': '+=15'
+                });
+            }
+            else if ($new_pwd.val() != $re_pwd.val()) {
+                $re_pwd.tooltip(
+                    $.extend(
+                        {}, {
+                            'selector': $re_pwd.selector,
+                            'title': '密码输入不一致，请重新输入'
+                        },
+                        tip_cfg
+                    )
+                );
+                $re_pwd.tooltip('show');
+                $re_pwd.parent().find('.change-pwd-tooltip').css({
+                    'top': '+=15'
+                });
+            }
+            else {
+                var val_origin = $origin_pwd.val(),
+                    val_new = $new_pwd.val(),
+                    val_re = $re_pwd.val();
+                $.each($inputs, function(i, $item) {
+                    $item.val('');
+                });
+                ret = {
+                    'origin_pwd': val_origin,
+                    'new_pwd': val_new,
+                    're_pwd': val_re
+                };
+            }
+            $.each($inputs, function(i, $item) {
+                $item.off('focus').on('focus', function() {
+                    $.each($inputs, function(j, $jtem) {
+                        $jtem.tooltip('hide');
+                    });
+                });
+            });
+            return ret;
+        }
+        $(document).ready(function() {
+            setup_navigation();
+            setup_change_pwd();
+        });
+    </script>
+    {# js #}
+    {% endblock %}
+</body>
+</html>
