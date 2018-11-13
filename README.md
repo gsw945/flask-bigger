@@ -1,5 +1,11 @@
 # Flask-Bigger *Flask大型应用骨架*
 
+# 开始使用
+1. `git clone https://github.com/gsw945/flask-bigger.git`
+2. `cd flask-bigger`
+3. `pip install -r requirements.txt`
+4. `python run.py`
+
 ## 后端说明
 > 使用 **Python 3** (理论上 **Python 2**可以正常运行，但是未测试)
 
