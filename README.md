@@ -109,9 +109,8 @@ python manage.py runserver --help
 │   ├── cdn.json                       # CDN资源列表
 │   ├── database.json                  # 数据库配置
 │   ├── example-database-mysql.json    # 数据库配置文件示例(MySQL)
-│   ├── example-database-sqlite.json   # 数据库配置文件示例(SQLite)
-│   └── robots.txt                     # 搜索引擎配置文件
-├── frontend                           # 文件目录
+│   └── example-database-sqlite.json   # 数据库配置文件示例(SQLite)
+├── frontend                           # 前端目录
 │   ├── static                         # 静态文件目录
 │   │   ├── ...                        # 自定义静态文件(css,js,image)
 │   │   ├── admin                      # 默认Admin前端

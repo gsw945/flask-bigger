@@ -110,6 +110,7 @@ def gen_pwd_view():
     return jsonify({
         'raw': raw_str,
         'encrypted': User.encrypt_string(raw_str),
+        'md5': utils.md5(raw_str),
         'hashkiller': 'https://hashkiller.co.uk/md5-decrypter.aspx'
     })
 
